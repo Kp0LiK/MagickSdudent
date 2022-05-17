@@ -7,24 +7,24 @@ namespace Client.Scripts.Zombie.States
     {
         private readonly ZombieAttackDetector _attackDetector;
         private float _damage;
+        private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
 
         public ZombieAttackState(Animator animation, IZombieSwitchState zombieSwitchState, float damage,
             ZombieAttackDetector zombieAttackDetector) : base(animation, zombieSwitchState)
         {
             _attackDetector = zombieAttackDetector;
+            _damage = damage;
         }
 
         public override void Start()
         {
-            Animation.SetBool("isAttack", true);
-            Debug.Log("attack started");
+            Animation.SetBool(IsAttack, true);
         }
 
         public override void Stop()
         {
-            Animation.SetBool("isAttack", false);
-            Debug.Log("attack ended");
+            Animation.SetBool(IsAttack, false);
         }
 
         public override async void Action()

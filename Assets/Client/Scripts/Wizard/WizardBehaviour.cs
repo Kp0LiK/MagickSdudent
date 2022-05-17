@@ -4,6 +4,7 @@ using Client.Scripts.Interfaces;
 using Client.Scripts.Wizard.State;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace Client.Scripts.Wizard
 {
@@ -15,31 +16,27 @@ namespace Client.Scripts.Wizard
         private List<BaseWizardState> _states;
         private BaseWizardState _currentState;
         private NavMeshAgent  _meshAgent;
+        private PlayerAttackDetector _detector;
+
+        public event UnityAction<float> HealthChanged;
 
         private void Awake()
         {
+            _detector = GetComponentInChildren<PlayerAttackDetector>();
             _animator = GetComponent<Animator>();
             _meshAgent = GetComponent<NavMeshAgent>();
 
             _states = new List<BaseWizardState>
             {
                 new WizardIdleState(_animator, this),
-                new WizardRunState(_animator, this, transform, _meshAgent)
+                new WizardRunState(_animator, this, transform, _meshAgent),
+                new WizardAttackState(_animator, this, _detector, _config.Damage),
+                new WizardDeadState(_animator, this)
             };
 
             _currentState = _states[0];
             _currentState.Start();
             _currentState.Action();
-        }
-
-        private void Update()
-        {
-            switch (_currentState)
-            {
-                case WizardIdleState _:
-                    _currentState.Action();
-                    break;
-            }
         }
 
         public void SwitchState<T>() where T : BaseWizardState
@@ -61,15 +58,18 @@ namespace Client.Scripts.Wizard
             {
                 _config.Health = 0;
                 _config.IsDied = true;
-                return;
             }
 
             if (_config.IsDied)
             {
-                //Todo: Make Died State
+                SwitchState<WizardDeadState>();
             }
-
-            _config.Health -= damage;
+            else
+            {
+                _config.Health -= damage;
+            }
+            
+            HealthChanged?.Invoke(_config.Health);
         }
     }
 }
