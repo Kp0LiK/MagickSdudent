@@ -1,10 +1,32 @@
+using System;
+using Client.Scripts;
 using Client.Scripts.Wizard;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthViewer : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
-    [SerializeField] private WizardBehaviour _wizardBehaviour;
+    private WizardBehaviour _wizardBehaviour;
 
+    private void Awake()
+    {
+        _wizardBehaviour = Container.Instance.Player;
+    }
+
+    private void OnEnable()
+    {
+        _wizardBehaviour.HealthChanged += OnHealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        _wizardBehaviour.HealthChanged -= OnHealthChanged;
+    }
+
+    private void OnHealthChanged(float health)
+    {
+        _slider.DOValue(health, 0.5f);
+    }
 }
