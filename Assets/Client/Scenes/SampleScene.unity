@@ -123,64 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: d23c6e6fc35c5864b8674b6f632e3cc9, type: 2}
---- !u!1 &12047675
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 12047676}
-  - component: {fileID: 12047677}
-  - component: {fileID: 12047678}
-  m_Layer: 0
-  m_Name: AttackTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &12047676
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12047675}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.311, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1131458433}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &12047677
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12047675}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.6461475, z: 0.5075793}
-  m_Center: {x: 0, y: -0.32307374, z: 0.5348654}
---- !u!114 &12047678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12047675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8f3476d1f6086b48b5bf4f658f4342d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &518048976
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,10 +619,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8969352348918653400, guid: e232e01acbfb12d49910544f3f75864f, type: 3}
-      propertyPath: _config.<Health>k__BackingField
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 9017256554238119709, guid: e232e01acbfb12d49910544f3f75864f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -803,6 +741,14 @@ PrefabInstance:
     - target: {fileID: 3554939277871299461, guid: 7ec58d110e8cc954ca7850365026d555, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371939637862704823, guid: 7ec58d110e8cc954ca7850365026d555, type: 3}
+      propertyPath: m_Size.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371939637862704823, guid: 7ec58d110e8cc954ca7850365026d555, type: 3}
+      propertyPath: m_Size.z
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 8371939638646260186, guid: 7ec58d110e8cc954ca7850365026d555, type: 3}
       propertyPath: m_Radius
