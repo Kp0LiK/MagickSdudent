@@ -18,6 +18,8 @@ namespace Client.Scripts.Wizard
         private NavMeshAgent  _meshAgent;
         private PlayerAttackDetector _detector;
 
+        public EntityConfig Config => _config;
+
         public event UnityAction<float> HealthChanged;
 
         private void Awake()
@@ -31,6 +33,7 @@ namespace Client.Scripts.Wizard
                 new WizardIdleState(_animator, this),
                 new WizardRunState(_animator, this, transform, _meshAgent),
                 new WizardAttackState(_animator, this, _detector, _config.Damage),
+                new WizardHealthRecieverState(_animator, this),
                 new WizardDeadState(_animator, this)
             };
 
@@ -70,6 +73,14 @@ namespace Client.Scripts.Wizard
             }
             
             HealthChanged?.Invoke(_config.Health);
+        }
+
+        public void HealthAdd(float health)
+        {
+            if (!_config.IsDied && _config.Health < 100)
+            {
+                _config.Health += health;
+            }
         }
     }
 }
