@@ -8,6 +8,7 @@ namespace Client.Scripts.Wizard.Loot
     public class HealthReceiver : MonoBehaviour
     {
         [SerializeField] private float _health;
+        [SerializeField] private AudioSource _audio;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -18,6 +19,7 @@ namespace Client.Scripts.Wizard.Loot
                 }
                 
                 wizardBehaviour.HealthAdd(_health);
+               _audio.Play();
                 wizardBehaviour.SwitchState<WizardHealthRecieverState>();
                 Destroy(gameObject, 1);
             }
