@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Client.Scripts.Interfaces;
 using Client.Scripts.Wizard;
 using Client.Scripts.Zombie.States;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.AI;
 namespace Client.Scripts.Zombie
 {
     [SelectionBase]
-    public class ZombieBehaviour : MonoBehaviour, IZombieSwitchState
+    public class ZombieBehaviour : MonoBehaviour, IZombieSwitchState, IDamageable
     {
         [SerializeField] private EntityConfig _config;
         private Animator _animator;
@@ -30,7 +31,8 @@ namespace Client.Scripts.Zombie
             {
                 new ZombieIdleState(_animator, this),
                 new ZombieWalkState(_animator, this, transform, _meshAgent, _zombiePlayerDetector),
-                new ZombieAttackState(_animator, this, _config.Damage, _zombieAttackDetector)
+                new ZombieAttackState(_animator, this, _config.Damage, _zombieAttackDetector),
+                new ZombieDeadState(_animator, this, _zombieAttackDetector, _zombiePlayerDetector, _meshAgent)
             };
 
             _currentState = _states[0];
@@ -101,6 +103,24 @@ namespace Client.Scripts.Zombie
 
             _currentState.Start();
             _currentState.Action();
+        }
+
+        public void ApplyDamage(float damage)
+        {
+            if (_config.Health <= 0)
+            {
+                _config.Health = 0;
+                _config.IsDied = true;
+            }
+
+            if (_config.IsDied)
+            {
+                SwitchState<ZombieDeadState>();
+            }
+            else
+            {
+                _config.Health -= damage;
+            }
         }
     }
 }
