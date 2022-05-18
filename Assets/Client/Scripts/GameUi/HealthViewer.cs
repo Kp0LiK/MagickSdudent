@@ -1,5 +1,3 @@
-using System;
-using Client.Scripts;
 using Client.Scripts.Wizard;
 using DG.Tweening;
 using UnityEngine;
@@ -12,7 +10,7 @@ public class HealthViewer : MonoBehaviour
 
     private void Awake()
     {
-        _wizardBehaviour = Container.Instance.Player;
+        _wizardBehaviour = FindObjectOfType<WizardBehaviour>();
     }
 
     private void OnEnable()
