@@ -4,12 +4,14 @@ using Client.Scripts.Interfaces;
 using Client.Scripts.Zombie.States;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace Client.Scripts.Zombie
 {
     [SelectionBase]
     public class ZombieBehaviour : MonoBehaviour, IZombieSwitchState, IDamageable
     {
+        [SerializeField] private AudioSource _audio;
         [SerializeField] private EntityConfig _config;
         private Animator _animator;
         private NavMeshAgent _meshAgent;
@@ -20,7 +22,7 @@ namespace Client.Scripts.Zombie
         private BaseZombieState _currentState;
 
         public EntityConfig Config => _config;
-
+        public event UnityAction <float> HealthChanged;
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -111,6 +113,7 @@ namespace Client.Scripts.Zombie
 
             if (_config.Health <= 0)
             {
+                _audio.Play();
                 _config.Health = 0;
                 _config.IsDied = true;
             }
@@ -119,6 +122,8 @@ namespace Client.Scripts.Zombie
             {
                 SwitchState<ZombieDeadState>();
             }
+            
+            HealthChanged?.Invoke(_config.Health);
         }
     }
 }

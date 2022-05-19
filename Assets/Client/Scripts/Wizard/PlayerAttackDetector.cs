@@ -23,8 +23,7 @@ namespace Client.Scripts.Wizard
             {
                 if (zombieBehaviour.Config.IsDied)
                     return;
-
-                Debug.Log("Zombie here");
+                
                 Zombies.Add(zombieBehaviour);
                 Entered?.Invoke();
             }  

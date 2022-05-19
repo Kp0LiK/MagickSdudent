@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
     
     private void Start()
     {
+        Time.timeScale = 1f;
         _title.DOColor(new Color(0.68f, 0.06f, 1f), 3f).SetEase(Ease.InOutBounce).SetLoops(-1, LoopType.Yoyo);
         _image.gameObject.SetActive(false);
         _image.DOFade(0, 0);

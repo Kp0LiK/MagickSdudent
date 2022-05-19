@@ -6,19 +6,22 @@ namespace Client.Scripts.Wizard.State
 {
     public class WizardAttackState : BaseWizardState
     {
+        private AudioSource _audio;
         private readonly PlayerAttackDetector _detector;
         private float _damage;
         private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
-        public WizardAttackState(Animator animation, IWizardStateSwitch wizardStateSwitch, PlayerAttackDetector detector, float damage) 
+        public WizardAttackState(Animator animation, IWizardStateSwitch wizardStateSwitch, PlayerAttackDetector detector, float damage, AudioSource audio) 
             : base(animation, wizardStateSwitch)
         {
             _detector = detector;
             _damage = damage;
+            _audio = audio;
         }
 
         public override async void Start()
         {
+            _audio.Play();
             Debug.Log("In Attack");
             Animation.SetBool(IsAttack, true);
             if(_detector.Zombies.Count <= 0)

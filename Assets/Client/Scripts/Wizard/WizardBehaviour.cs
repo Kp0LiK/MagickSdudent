@@ -12,6 +12,7 @@ namespace Client.Scripts.Wizard
     public class WizardBehaviour : MonoBehaviour, IWizardStateSwitch, IDamageable
     {
         [SerializeField] private EntityConfig _config;
+        [SerializeField] private AudioSource _audio;
         private Animator _animator;
         private List<BaseWizardState> _states;
         private BaseWizardState _currentState;
@@ -32,7 +33,7 @@ namespace Client.Scripts.Wizard
             {
                 new WizardIdleState(_animator, this),
                 new WizardRunState(_animator, this, transform, _meshAgent),
-                new WizardAttackState(_animator, this, _detector, _config.Damage),
+                new WizardAttackState(_animator, this, _detector, _config.Damage, _audio),
                 new WizardHealthReceiveState(_animator, this, this),
                 new WizardDeadState(_animator, this)
             };

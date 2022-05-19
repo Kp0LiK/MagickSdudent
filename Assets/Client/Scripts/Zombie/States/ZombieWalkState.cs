@@ -39,6 +39,9 @@ namespace Client.Scripts.Zombie.States
                 if (ReferenceEquals(_detector.PlayerTarget, null))
                     return;
 
+                if (ReferenceEquals(_meshAgent, null))
+                    return;
+
                 if (_meshAgent.isOnNavMesh)
                 {
                     _meshAgent.SetDestination(_detector.PlayerTarget.transform.position);
@@ -47,7 +50,6 @@ namespace Client.Scripts.Zombie.States
                 {
                     return;
                 }
-
             }
         }
     }
