@@ -33,7 +33,7 @@ namespace Client.Scripts.Wizard
                 new WizardIdleState(_animator, this),
                 new WizardRunState(_animator, this, transform, _meshAgent),
                 new WizardAttackState(_animator, this, _detector, _config.Damage),
-                new WizardHealthRecieverState(_animator, this),
+                new WizardHealthReceiveState(_animator, this, this),
                 new WizardDeadState(_animator, this)
             };
 
@@ -71,9 +71,11 @@ namespace Client.Scripts.Wizard
             {
                 _config.Health -= damage;
             }
-            
-            HealthChanged?.Invoke(_config.Health);
+
+            UpdateHealth();
         }
+
+        public void UpdateHealth() => HealthChanged?.Invoke(_config.Health);
 
         public void HealthAdd(float health)
         {

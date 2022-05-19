@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Client.Scripts.Interfaces;
-using Client.Scripts.Wizard;
 using Client.Scripts.Zombie.States;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,6 +19,8 @@ namespace Client.Scripts.Zombie
         private List<BaseZombieState> _states;
         private BaseZombieState _currentState;
 
+        public EntityConfig Config => _config;
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -31,7 +31,7 @@ namespace Client.Scripts.Zombie
             {
                 new ZombieIdleState(_animator, this),
                 new ZombieWalkState(_animator, this, transform, _meshAgent, _zombiePlayerDetector),
-                new ZombieAttackState(_animator, this, _config.Damage, _zombieAttackDetector),
+                new ZombieAttackState(_animator, this, _config, _zombieAttackDetector),
                 new ZombieDeadState(_animator, this, _zombieAttackDetector, _zombiePlayerDetector, _meshAgent)
             };
 
@@ -107,6 +107,8 @@ namespace Client.Scripts.Zombie
 
         public void ApplyDamage(float damage)
         {
+            _config.Health -= damage;
+
             if (_config.Health <= 0)
             {
                 _config.Health = 0;
@@ -116,10 +118,6 @@ namespace Client.Scripts.Zombie
             if (_config.IsDied)
             {
                 SwitchState<ZombieDeadState>();
-            }
-            else
-            {
-                _config.Health -= damage;
             }
         }
     }

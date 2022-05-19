@@ -1,4 +1,3 @@
-using Client.Scripts.Wizard;
 using UnityEngine;
 using UnityEngine.AI;
 

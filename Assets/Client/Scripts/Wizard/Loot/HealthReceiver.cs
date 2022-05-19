@@ -20,7 +20,7 @@ namespace Client.Scripts.Wizard.Loot
                 
                 wizardBehaviour.HealthAdd(_health);
                _audio.Play();
-                wizardBehaviour.SwitchState<WizardHealthRecieverState>();
+                wizardBehaviour.SwitchState<WizardHealthReceiveState>();
                 Destroy(gameObject, 1);
             }
         }

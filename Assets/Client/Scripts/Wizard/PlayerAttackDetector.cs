@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Client.Scripts.Zombie;
 using UnityEngine;
@@ -22,6 +21,9 @@ namespace Client.Scripts.Wizard
         {
             if (other.TryGetComponent(out ZombieBehaviour zombieBehaviour))
             {
+                if (zombieBehaviour.Config.IsDied)
+                    return;
+
                 Debug.Log("Zombie here");
                 Zombies.Add(zombieBehaviour);
                 Entered?.Invoke();
